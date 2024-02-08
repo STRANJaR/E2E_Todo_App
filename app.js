@@ -12,4 +12,6 @@ app.use(express.json({
     limit: "20kb"
 }))
 
+app.use(express.static("public"))
+
 export {app}

@@ -62,8 +62,27 @@ const deleteTodo = asyncHandler( async(req, res)=>{
     .json(new ApiResponse(200, {}, "Todo deleted successfully"))
 })
 
+
+const isComplete = asyncHandler(async(req, res)=>{
+    const { todoId } = req.params;
+
+    if(!todoId) throw new ApiError(400, "Invalid todo Id")
+
+    const todo = await Todo.findById(todoId)
+
+    if(!todo) throw new ApiError(404, "todo not found")
+
+    todo.completed = true;
+    await todo.save()
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "compleated checked"))
+})
+
 export {
     addTodo,
     editTodo,
-    deleteTodo
+    deleteTodo,
+    isComplete
 }

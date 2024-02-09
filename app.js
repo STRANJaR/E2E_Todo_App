@@ -14,4 +14,12 @@ app.use(express.json({
 
 app.use(express.static("public"))
 
+
+// import routes
+import todoRouter from './routes/todo.routes.js'
+
+// routes declaration 
+app.use("/api/v1/todo", todoRouter)
+
+
 export {app}

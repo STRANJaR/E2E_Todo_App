@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { addTodo, updateTodo } from "../controllers/todo.controller.js";
+import { 
+    addTodo, 
+    deleteTodo, 
+    editTodo,
+} from "../controllers/todo.controller.js";
 
 const router = Router()
 
 router.route("/add-todo").post(addTodo)
-router.route("/update-todo/:todoId").patch(updateTodo)
+router.route("/edit-todo/:todoId").patch(editTodo)
+router.route("/delete-todo/:todoId").delete(deleteTodo)
 
 
 export default router

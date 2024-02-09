@@ -5,7 +5,7 @@ import {ApiResponse} from '../utils/ApiResponse.js'
 import { Todo } from "../models/todo.model.js";
 
 
-
+// CREATE TODOhttp://localhost:8000/api/v1/todo/all-complete-todos
 const addTodo = asyncHandler(async(req, res)=>{
     const {title, description} = req.body;
 
@@ -24,7 +24,7 @@ const addTodo = asyncHandler(async(req, res)=>{
 }) 
 
 
-
+// EDIT TODO 
 const editTodo = asyncHandler(async(req, res)=> {
     const { todoId } = req.params;
     const {title, description} = req.body;
@@ -49,7 +49,7 @@ const editTodo = asyncHandler(async(req, res)=> {
 })
 
 
-
+// DELETE TODO 
 const deleteTodo = asyncHandler( async(req, res)=>{
     const { todoId } = req.params;
 
@@ -62,7 +62,7 @@ const deleteTodo = asyncHandler( async(req, res)=>{
     .json(new ApiResponse(200, {}, "Todo deleted successfully"))
 })
 
-
+// COMPLETE STATUS CHECK 
 const isComplete = asyncHandler(async(req, res)=>{
     const { todoId } = req.params;
 
@@ -80,7 +80,7 @@ const isComplete = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, {}, "compleated checked"))
 })
 
-
+// AGGREGATION FOR GET ALL COMPLETED TODOS/TASK 
 const getAllCompletedTodos = asyncHandler(async(req, res)=>{
     const completeTodos = await Todo.aggregate([
         {
@@ -113,10 +113,42 @@ const getAllCompletedTodos = asyncHandler(async(req, res)=>{
 })
 
 
+// AGGREGATION FOR GET ALL INCOMPLETED TODOS/TASK 
+const getAllIncompleteTodos = asyncHandler( async(req, res)=>{
+    const incompleteTodos = await Todo.aggregate([
+        {
+            $match: {
+                completed: false
+            }
+        },
+        {
+            $addFields: {
+                incompleteTodos: "$completed"
+            }
+        },
+        {
+            $project: {
+                incompleteTodos: 1,
+                title: 1,
+                description: 1,
+                createdAt: 1,
+                updatedAt: 1
+            }
+        }
+    ])
+
+    if(!incompleteTodos) throw new ApiError(400, "something went wrong while fetching todos")
+
+    return res
+    .status(200)
+    .json( new ApiResponse(200, incompleteTodos, "Todos fetched successfully"))
+})
+
 export {
     addTodo,
     editTodo,
     deleteTodo,
     isComplete,
-    getAllCompletedTodos
+    getAllCompletedTodos,
+    getAllIncompleteTodos
 }

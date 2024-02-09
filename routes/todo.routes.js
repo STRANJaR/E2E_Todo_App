@@ -4,6 +4,7 @@ import {
     deleteTodo, 
     editTodo,
     getAllCompletedTodos,
+    getAllIncompleteTodos,
     isComplete,
 } from "../controllers/todo.controller.js";
 
@@ -14,5 +15,6 @@ router.route("/edit-todo/:todoId").patch(editTodo)
 router.route("/delete-todo/:todoId").delete(deleteTodo)
 router.route("/complete/:todoId").put(isComplete)
 router.route("/all-complete-todos").get(getAllCompletedTodos)
+router.route("/all-incomplete-todos").get(getAllIncompleteTodos)
 
 export default router

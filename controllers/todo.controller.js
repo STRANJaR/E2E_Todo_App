@@ -80,9 +80,43 @@ const isComplete = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, {}, "compleated checked"))
 })
 
+
+const getAllCompletedTodos = asyncHandler(async(req, res)=>{
+    const completeTodos = await Todo.aggregate([
+        {
+            $match: {
+            completed: true
+            }
+        },
+        {
+            $addFields: {
+            completedTodos: "$completed"
+            }
+        },
+        {
+            $project: {
+            completedTodos: 1,
+            title: 1,
+            description: 1,
+            createdAt: 1,
+            updatedAt: 1
+            }
+        }
+        
+        ])
+
+    if(!completeTodos) throw new ApiError(404, "something went wrong while fetching todos")
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, completeTodos, "Todos fetched successfully"))
+})
+
+
 export {
     addTodo,
     editTodo,
     deleteTodo,
-    isComplete
+    isComplete,
+    getAllCompletedTodos
 }

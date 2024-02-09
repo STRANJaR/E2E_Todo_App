@@ -24,6 +24,31 @@ const addTodo = asyncHandler(async(req, res)=>{
 }) 
 
 
+
+const updateTodo = asyncHandler(async(req, res)=> {
+    const { todoId } = req.params;
+    const {title, description} = req.body;
+
+    if(!todoId) throw new ApiError(400, "Invalid todoId")
+    if(!(title && description)) throw new ApiError(400, "titile and description is required")
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+        todoId,
+        {
+            title,
+            description
+        },
+        {new: true}
+    )
+
+    if(!updatedTodo) throw new ApiError(400, "something went wrong while updating the todo")
+
+    return res
+    .status(200)
+    .json( new ApiResponse(200, updatedTodo, "Todo updated successfully"))
+})
+
 export {
-    addTodo
+    addTodo,
+    updateTodo
 }

@@ -20,7 +20,13 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, 'password is required']
-    }
+    },
+    todos: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Todo"
+        }
+    ]
 }, {timestamps: true})
 
 

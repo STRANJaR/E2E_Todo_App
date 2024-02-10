@@ -3,8 +3,7 @@ import {
     addTodo, 
     deleteTodo, 
     editTodo,
-    getAllCompletedTodos,
-    getAllIncompleteTodos,
+    getAllTodos,
     isComplete,
 } from "../controllers/todo.controller.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
@@ -15,7 +14,6 @@ router.route("/add-todo").post(verifyJWT, addTodo)
 router.route("/edit-todo/:todoId").patch(verifyJWT, editTodo)
 router.route("/delete-todo/:todoId").delete(verifyJWT, deleteTodo)
 router.route("/complete/:todoId").put(verifyJWT, isComplete)
-router.route("/all-complete-todos").get(verifyJWT, getAllCompletedTodos)
-router.route("/all-incomplete-todos").get(verifyJWT, getAllIncompleteTodos)
+router.route("/all-todos/:userId").get(verifyJWT, getAllTodos)
 
 export default router

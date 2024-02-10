@@ -3,6 +3,7 @@ import {asyncHandler} from '../utils/asyncHandler.js'
 import {ApiError} from '../utils/ApiError.js'
 import {ApiResponse} from '../utils/ApiResponse.js'
 import { Todo } from "../models/todo.model.js";
+import { User } from "../models/user.model.js";
 
 
 // CREATE TODOhttp://localhost:8000/api/v1/todo/all-complete-todos
@@ -81,57 +82,52 @@ const isComplete = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, {}, "compleated checked"))
 })
 
-// AGGREGATION FOR GET ALL COMPLETED TODOS/TASK 
-const getAllCompletedTodos = asyncHandler(async(req, res)=>{
-    const completeTodos = await Todo.aggregate([
-        {
-            $match: {
-            completed: true
-            }
-        },
-        {
-            $addFields: {
-            completedTodos: "$completed"
-            }
-        },
-        {
-            $project: {
-            completedTodos: 1,
-            title: 1,
-            description: 1,
-            createdAt: 1,
-            updatedAt: 1
-            }
-        }
-        
-        ])
-
-    if(!completeTodos) throw new ApiError(404, "something went wrong while fetching todos")
-
-    return res
-    .status(200)
-    .json(new ApiResponse(200, completeTodos, "Todos fetched successfully"))
-})
 
 
-// AGGREGATION FOR GET ALL INCOMPLETED TODOS/TASK 
-const getAllIncompleteTodos = asyncHandler( async(req, res)=>{
+// AGGREGATION FOR GET ALL USER TODOS
+const getAllTodos = asyncHandler( async(req, res)=>{
+    const { userId } = req.params;
+
+    const owner = await User.findById(userId)
+    console.log(owner)
+    if(!owner) throw new ApiError(200, "User does not exist")
+
     const incompleteTodos = await Todo.aggregate([
         {
             $match: {
-                completed: false
+                owner: new mongoose.Types.ObjectId(userId)
+            }
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "userDetails",
+                pipeline: [
+                    {
+                        $project: {
+                            fullName: 1,
+                            username: 1,
+                            email: 1
+                        }
+                    }
+                ]
             }
         },
         {
             $addFields: {
-                incompleteTodos: "$completed"
+                userDetails: {
+                    $first: "$userDetails"
+                }
             }
         },
         {
             $project: {
-                incompleteTodos: 1,
+                userDetails: 1,
                 title: 1,
                 description: 1,
+                completed: 1,
                 createdAt: 1,
                 updatedAt: 1
             }
@@ -150,6 +146,5 @@ export {
     editTodo,
     deleteTodo,
     isComplete,
-    getAllCompletedTodos,
-    getAllIncompleteTodos
+    getAllTodos
 }

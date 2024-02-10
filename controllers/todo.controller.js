@@ -13,7 +13,8 @@ const addTodo = asyncHandler(async(req, res)=>{
 
     const todo = await Todo.create({
         title,
-        description
+        description,
+        owner: req.user?._id
     })
 
     if(!todo) throw new ApiError(400, "something went wrong while adding todo")

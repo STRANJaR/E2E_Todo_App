@@ -8,9 +8,9 @@ import {ApiError} from "../utils/ApiError.js"
 const generateAccessToken = async(userId)=>{
     try {
         const user = await User.findById(userId)
-        const accessToken = user.generateAccessToken()
+        const accessToken = user.generateAccessTokens()
 
-        return accessToken
+        return {accessToken}
     } catch (error) {
         throw new ApiError(500, "something went wrong while generating accesstoken")
     }
@@ -63,7 +63,9 @@ const loginUser = asyncHandler(async(req, res)=>{
     if(!isPasswordValid) throw new ApiError(400, "Invalid credentials")
 
     const { accessToken } = await generateAccessToken(userValidation._id)
-
+    
+    // ASSIGNMENT:
+    // if(!accessToken) throw new ApiError(400, "TOKEN not found")
     const loggedInUser = await User.findById(userValidation._id)
     .select("-password")
 

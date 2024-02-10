@@ -3,7 +3,7 @@ import { User } from "../models/user.model.js";
 import {asyncHandler} from "../utils/asyncHandler.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {ApiError} from "../utils/ApiError.js"
-
+import nodemailer from 'nodemailer'
 
 const generateAccessToken = async(userId)=>{
     try {
@@ -33,6 +33,34 @@ const createUser = asyncHandler(async(req, res)=>{
     })
 
     if(!user) throw new ApiError(400, "something went wrong while creating user")
+    // TODO:
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: 'rohitrks805@gmail.com',
+        pass: 'jyij zhxy fzah wawq'
+    }
+})
+
+const mailOptions = {
+    from: 'TodoAPP <noreply.rohitrks805@gmail.com>',
+    to: 'firmwarecoder@gmail.com',
+    subject: "Account Created Successfully !",
+    html: `
+        <h1> Hello ${fullName}</h1>
+        <p>Your username: <bold>${username}</bold>
+        <p>Your password: <bold>${password}</bold>
+        </p>
+        <p>Thankyou for joining us. Have a great day</p>
+    `
+}
+if(user){
+    transporter.sendMail(mailOptions, (err, info)=>{
+        if(err) console.log(err)
+        else console.log("Email sent successfully: " + info.response)
+    })
+}
+
 
     return res
     .status(201)

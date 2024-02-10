@@ -43,15 +43,20 @@ const transporter = nodemailer.createTransport({
 })
 
 const mailOptions = {
-    from: 'TodoAPP <noreply.rohitrks805@gmail.com>',
-    to: 'firmwarecoder@gmail.com',
+    from: 'no-reply@TodoAPP <noreply.rohitrks805@gmail.com>',
+    to: `${email}`,
     subject: "Account Created Successfully !",
     html: `
-        <h1> Hello ${fullName}</h1>
-        <p>Your username: <bold>${username}</bold>
-        <p>Your password: <bold>${password}</bold>
+        <h3>Hi ${fullName}</h3>
+        <br>
+        <p>Your username: <b>${username}</b>
+        <p>Your password: <b>${password}</b>
         </p>
-        <p>Thankyou for joining us. Have a great day</p>
+        <br>
+        <br>
+        <br>
+        <h5>Made with &#10084; By Rohit Shrivastav</h5>
+
     `
 }
 if(user){

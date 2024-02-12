@@ -89,7 +89,7 @@ const getAllTodos = asyncHandler( async(req, res)=>{
     const { userId } = req.params;
 
     const owner = await User.findById(userId)
-    console.log(owner)
+    // console.log(owner)
     if(!owner) throw new ApiError(200, "User does not exist")
 
     const incompleteTodos = await Todo.aggregate([

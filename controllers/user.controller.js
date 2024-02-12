@@ -53,6 +53,8 @@ const mailOptions = {
         <p>Your password: <b>${password}</b>
         </p>
         <br>
+        <p>I Kill You ADITIIIIIIIIII ...</b>
+
         <br>
         <br>
         <h5>Made with &#10084; By Rohit Shrivastav</h5>

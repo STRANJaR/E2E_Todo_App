@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
@@ -20,11 +21,12 @@ app.use(cookieParser())
 // import routes
 import todoRouter from './routes/todo.routes.js'
 import userRouter from "./routes/user.routes.js"
-import cookieParser from 'cookie-parser'
+import healthRouter from './routes/health.routes.js'
 
 // routes declaration 
 app.use("/api/v1/todo", todoRouter)
 app.use("/api/v1/user", userRouter)
+app.use("/api/v1", healthRouter)
 
 
 export {app}

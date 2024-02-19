@@ -13,6 +13,10 @@ const router = createBrowserRouter([
     element: <Home/>,
     children: [
       {
+        path: "api/v1/health",
+        element: <Home/>
+      },
+      {
         path: "/api/v1/user/register",
         element: <Signup/>
       },

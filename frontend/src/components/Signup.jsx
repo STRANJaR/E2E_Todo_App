@@ -147,7 +147,7 @@ function Signup() {
 
               <p className="pt-5">Already registerd?
               <Link
-              to="/api/v1/user/login"
+              to="/login"
               className="font-medium"
               >
               Sign in to your account

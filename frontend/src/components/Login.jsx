@@ -4,9 +4,34 @@ import { useState } from "react"
 function Login() {
 const [data, setData] = useState({
   username: "",
+  email: "",
   password: "" 
 });
 
+const handleChange = (e) =>{
+  const value = e.target.value;
+  setData({
+    ...data,
+    [e.target.name] : value
+  })
+};
+
+const handleSubmit = (e) =>{
+  e.preventDefault();
+  const userData = {
+    username: data.username,
+    email: data.email,
+    password: data.password
+  };
+
+  axios.post("http://localhost:8000/api/v1/user/login", userData)
+  .then((response)=>{
+    console.log(response);
+
+    if(response.status === 200) alert(response.data.message)
+
+  })
+}
   return (
     <section className="h-screen w-full bg-bodyPrimary">
       <div className="bg-bodyPrimary h-screen flex justify-around  mx-20">
@@ -23,23 +48,23 @@ const [data, setData] = useState({
 
           <h1 className="text-3xl py-5 p">Log In</h1>
 
-          <form onSubmit={""}>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col"> 
 
               <label 
               className="text-xs py-2"
-              htmlFor="useroremail"
+              htmlFor="email"
               >
-                Email or username: 
+                Email: 
               </label>
 
                 <input 
                 className="p-3 outline-none border w-96"
-                placeholder="Enter Your Full Name..."
-                type="text" 
-                name="useroremail" 
-                defaultValue={""} 
-                onChange={""} 
+                placeholder="Enter Your email..."
+                type="email" 
+                name="email" 
+                defaultValue={data.email} 
+                onChange={handleChange} 
                 required={true} />
 
               <label 
@@ -51,11 +76,11 @@ const [data, setData] = useState({
 
                 <input 
                 className="p-3 outline-none border w-96"
-                placeholder="Enter Your Email..."
+                placeholder="Enter Your Password..."
                 type="password" 
                 name="password" 
-                defaultValue={""} 
-                onChange={""} 
+                defaultValue={data.password} 
+                onChange={handleChange} 
                 required={true} />
 
 

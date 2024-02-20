@@ -28,7 +28,7 @@ function Header() {
 
                     <li>
                     <NavLink
-                    to="/api/v1/about"
+                    to="/about"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
                     > About
 
@@ -37,14 +37,14 @@ function Header() {
 
                     <li>
                     <NavLink
-                    to="/api/v1/developer"
+                    to="/developer"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
                     >Developer</NavLink>
                     </li>
 
                     <li>
                     <NavLink
-                    to="/api/v1/contact"
+                    to="/contact"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
                     >Contact Us</NavLink>
                     </li>
@@ -57,14 +57,14 @@ function Header() {
                 <ul className="flex text-shadeGray p-3">
                     <li>
                     <NavLink
-                    to="/api/v1/user/login"
-                    className="px-5  mx-3 rounded-full  py-3 text-dimmedText hover:text-shadeGray transition-all"
+                    to="/login"
+                    className="px-5  mx-3 rounded-md  py-3 text-dimmedText hover:text-shadeGray transition-all shadow-md"
                     >Login</NavLink>
                     </li>
 
                     <li>
                     <NavLink
-                    to="/api/v1/user/register"
+                    to="/register"
                     className="px-5  mx-3  rounded-md text-whiteText shadow-lg py-3 bg-primaryColor"
                     >Sign Up</NavLink>
                     </li>

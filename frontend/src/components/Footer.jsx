@@ -2,7 +2,11 @@
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <section className="bg-shadeGray top-72 h-20">
+      <div className="text-black text-center">
+        Footer
+      </div>
+    </section>
   )
 }
 

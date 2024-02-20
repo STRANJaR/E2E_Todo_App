@@ -1,26 +1,78 @@
-import { Link } from "react-router-dom"
-
-
+import { Link, NavLink } from "react-router-dom"
+import { FcTodoList } from "react-icons/fc";
+ 
 function Header() {
   return (
-    <div className="h-32 w-full ">
-        <div className=" bg-slate-700 mx-80 rounded-full ">
-            <ul className="flex justify-center ">
-                <Link 
-                to="/"
-                className="px-5 py-2 m-3 bg-violet-500  rounded-full  cursor-pointer">
-                    Home</Link>
+    <div className="h-20 w-full bg-primaryColor ">
+        <div className="bg-bodySecondary shadow-sm flex justify-around content-center px-16">
+            {/* Left side nav  */}
+                <div className="flex p-3">
 
-                <Link
-                to="api/v1/user/register"
-                className="px-5 py-2 m-3 bg-violet-500   rounded-full cursor-pointer">
-                    SignUp</Link>
+                <div className="text-5xl">
+                    <FcTodoList/>
+                </div>
+                {/* <div className="text-primaryColor">
+                    TODO App
+                </div> */}
+            </div>
 
-                <Link
-                to="api/v1/user/login"
-                className="px-5 py-2 m-3 bg-violet-500  rounded-full cursor-pointer">
-                    LogIn</Link>
-            </ul>
+            {/* Middle side nav  */}
+            <div className="p-4">
+                <ul className="flex text-dimmedText p-3">
+                    <li>
+                    <NavLink
+                    to="/"
+                    className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
+                    >Home</NavLink>
+                    </li>
+
+                    <li>
+                    <NavLink
+                    to="/api/v1/about"
+                    className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
+                    > About
+
+                    </NavLink>
+                    </li>
+
+                    <li>
+                    <NavLink
+                    to="/api/v1/developer"
+                    className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
+                    >Developer</NavLink>
+                    </li>
+
+                    <li>
+                    <NavLink
+                    to="/api/v1/contact"
+                    className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
+                    >Contact Us</NavLink>
+                    </li>
+
+                </ul>
+            </div>
+
+            {/* Right side nav  */}
+            <div className="p-4">
+                <ul className="flex text-shadeGray p-3">
+                    <li>
+                    <NavLink
+                    to="/api/v1/user/login"
+                    className="px-5  mx-3 rounded-full  py-3 text-dimmedText hover:text-shadeGray transition-all"
+                    >Login</NavLink>
+                    </li>
+
+                    <li>
+                    <NavLink
+                    to="/api/v1/user/register"
+                    className="px-5  mx-3  rounded-md text-whiteText shadow-lg py-3 bg-primaryColor"
+                    >Sign Up</NavLink>
+                    </li>
+
+                </ul>
+            </div>
+
+
         </div>
     </div>
   )

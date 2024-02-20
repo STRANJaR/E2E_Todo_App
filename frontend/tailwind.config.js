@@ -12,7 +12,8 @@ export default {
       primaryColor: "#FE6053",
       whiteText: "#ffffff",
       dimmedText: "#786E6E",
-      shadeGray: "#312221"
+      shadeGray: "#312221",
+      blueShade: "#1A257D"
     }
   },
   plugins: [],

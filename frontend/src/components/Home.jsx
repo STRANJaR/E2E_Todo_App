@@ -43,6 +43,11 @@ const [data, setData] = useState({
    )
   };
 
+  // const handleChange = (e) =>{
+  //   const value = e.target.value;
+  //   setData(...value)
+  // }
+
   const handleSubmit = (e) =>{
     e.preventDefault();
     const userData = {
@@ -63,27 +68,27 @@ const [data, setData] = useState({
     <div>
     <h1>SignUp Account</h1>
     <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
+        <label htmlFor="fullName">
             fullName: 
-        <input type="text" name="name" id="name" value={data.fullName} onChange={handleChange} />
+        <input className="text-black" type="text" name="fullName" id="fullName" defaultValue={data.fullName} onChange={handleChange} />
         </label>
         
         <label htmlFor="email">
             Email: 
-        <input type="email" name="email" id="email" value={data.email} onChange={handleChange} />
+        <input className="text-black" type="email" name="email" id="email" defaultValue={data.email} onChange={handleChange} />
         </label>
 
         <label htmlFor="username">
             Username: 
-        <input type="text" name="username" id="username" value={data.username} onChange={handleChange} />
+        <input className="text-black" type="text" name="username" id="username" defaultValue={data.username} onChange={handleChange} />
         </label>
 
         <label htmlFor="password">
             Password: 
-        <input type="password" name="password" id="password" value={data.password} onChange={handleChange} />
+        <input className="text-black" type="password" name="password" id="password" defaultValue={data.password} onChange={handleChange} />
         </label>
     
-        <button type="submit">Submit</button>
+        <button className="bg-purple-500 p-2 rounded-sm" type="submit">Submit</button>
     </form>
     </div>
   )

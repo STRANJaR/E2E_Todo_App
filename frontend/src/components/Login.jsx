@@ -1,8 +1,11 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 function Login() {
+  let cookieValue;
+
   const navigate = useNavigate();
 
 const [data, setData] = useState({
@@ -29,13 +32,26 @@ const handleSubmit = (e) =>{
 
   axios.post("http://localhost:8000/api/v1/user/login", userData)
   .then((response)=>{
-    console.log(response);
-    if(response.status === 200) navigate("/root")
+
+    // Taking accessToken from res 
+    const Token = response.data.data.accessToken
+
+    if(!Token) alert("something went wrong while requiring accessToken from response");
+
+    cookieValue = Cookies.set(Token)
+   
+
+    if(!cookieValue) console.log("Cookie not found")
+
+
+    // if(response.status === 200) navigate("/root")
 
     if(response.status === 200) alert(response.data.message)
 
   })
 }
+
+
   return (
     <section className="h-screen w-full bg-bodyPrimary">
       <div className="bg-bodyPrimary h-screen flex justify-around  mx-20">
@@ -101,6 +117,8 @@ const handleSubmit = (e) =>{
         </div>
       </div>
     </section>
+
+    
   )
 }
 

@@ -148,7 +148,7 @@ function Signup() {
               <p className="pt-5">Already registerd?
               <Link
               to="/login"
-              className="font-medium"
+              className="font-medium hover:underline"
               >
               Sign in to your account
               </Link> 

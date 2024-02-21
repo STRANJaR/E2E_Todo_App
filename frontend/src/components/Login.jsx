@@ -1,7 +1,10 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
 const [data, setData] = useState({
   username: "",
   email: "",
@@ -27,6 +30,7 @@ const handleSubmit = (e) =>{
   axios.post("http://localhost:8000/api/v1/user/login", userData)
   .then((response)=>{
     console.log(response);
+    if(response.status === 200) navigate("/root")
 
     if(response.status === 200) alert(response.data.message)
 

@@ -1,7 +1,10 @@
 
 function About() {
   return (
-    <div>About</div>
+    <section className="h-96 bg-blueShade">
+        <h1 className="text-whiteText text-3xl text-center">About</h1>
+
+    </section>
   )
 }
 

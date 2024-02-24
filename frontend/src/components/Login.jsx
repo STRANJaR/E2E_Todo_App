@@ -33,12 +33,13 @@ const handleSubmit = (e) =>{
   axios.post("http://localhost:8000/api/v1/user/login", userData)
   .then((response)=>{
 
-    // Taking accessToken from res 
+    // ASSIGNMENT: Taking accessToken from res 
     const Token = response.data.data.accessToken
 
     if(!Token) alert("something went wrong while requiring accessToken from response");
 
-    cookieValue = Cookies.set(Token)
+    cookieValue = Cookies.set("accessToken", Token)
+
    
 
     if(!cookieValue) console.log("Cookie not found")

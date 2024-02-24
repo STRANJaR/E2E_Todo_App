@@ -22,7 +22,7 @@ function Home() {
 
           <Link 
           target="_blank" 
-          className="px-9 py-5 mx-5 outline-none rounded-full transition-all hover:shadow-md"
+          className="px-9 py-4 mx-5 outline-none rounded-full transition-all hover:shadow-md hover:border"
           >Learn more !</Link>
         </div>
 

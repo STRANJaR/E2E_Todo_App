@@ -10,6 +10,7 @@ import About from './components/About.jsx'
 import Developer from './components/Developer.jsx'
 import Contact from './components/Contact.jsx'
 import Root from './components/Root.jsx'
+import Todos from './components/Todos.jsx'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/root",
         element: <Root/>
+      },
+      {
+        path: "/todos",
+        element: <Todos/>
       }
     ]
   }

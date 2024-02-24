@@ -89,7 +89,7 @@ const loginUser = asyncHandler(async(req, res)=>{
         ]
     }) 
 
-    if(!userValidation) throw new ApiError(404, "User not found")
+    if(!userValidation) throw new ApiResponse(404, "User not found")
 
     const isPasswordValid = await userValidation.isPasswordCorrect(password)
 

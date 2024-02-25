@@ -11,6 +11,7 @@ import Developer from './components/Developer.jsx'
 import Contact from './components/Contact.jsx'
 import Root from './components/Root.jsx'
 import Todos from './components/Todos.jsx'
+import CreateTodo from './components/CreateTodo.jsx'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/todos",
         element: <Todos/>
+      },
+      {
+        path: "/create-todo",
+        element: <CreateTodo/>
       }
     ]
   }

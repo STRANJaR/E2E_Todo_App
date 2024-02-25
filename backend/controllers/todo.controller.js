@@ -8,13 +8,12 @@ import { User } from "../models/user.model.js";
 
 // CREATE TODOhttp://localhost:8000/api/v1/todo/all-complete-todos
 const addTodo = asyncHandler(async(req, res)=>{
-    const {title, description} = req.body;
+    const { title } = req.body;
 
-    if(!(title && description)) throw new ApiError(400, "title and description is required")
+    if(!(title)) throw new ApiError(400, "title is required")
 
     const todo = await Todo.create({
         title,
-        description,
         owner: req.user?._id
     })
 
@@ -29,16 +28,15 @@ const addTodo = asyncHandler(async(req, res)=>{
 // EDIT TODO 
 const editTodo = asyncHandler(async(req, res)=> {
     const { todoId } = req.params;
-    const {title, description} = req.body;
+    const { title } = req.body;
 
     if(!todoId) throw new ApiError(400, "Invalid todoId")
-    if(!(title && description)) throw new ApiError(400, "titile and description is required")
+    if(!(title || description)) throw new ApiError(400, "titile is required")
 
     const editedTodo = await Todo.findByIdAndUpdate(
         todoId,
         {
             title,
-            description
         },
         {new: true}
     )

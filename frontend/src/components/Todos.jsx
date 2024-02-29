@@ -6,11 +6,11 @@ import { MdDelete } from "react-icons/md";
 
 function Todos() {
   const [todo, setTodo] = useState([])
-  
+  const [todoId, setTodoId] = useState('')
 console.log()
   const handleDeleteTodo = () => {
 
-    axios.delete('http://localhost:8000/api/v1/todo/delete-todo/65d83e0eba07c911eccab759')
+    axios.delete(`http://localhost:8000/api/v1/todo/delete-todo/${todoId}`)
     .then((res)=>{
       console.log(res)
     })
@@ -22,6 +22,10 @@ console.log()
     .then((res)=>{
       const data = res.data.data;
       setTodo(data)
+
+      data.forEach(element => {
+        setTodoId(element._id)
+      });
     })
     .catch((err)=>{
       console.log(err)
@@ -37,7 +41,7 @@ console.log()
           key={value._id}
           >
             <div className='flex items-center justify-between text-shadeGray'>
-              <h1 className='text-whiteText text'>{value._id} </h1>
+              <h1 className='text-whiteText text'>{value.title} </h1>
               <div className='flex items-center'>
                 <FaCheck className='text-[23px] mx-2 cursor-pointer'/>
 

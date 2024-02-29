@@ -28,9 +28,9 @@ function Header() {
 
                     <li>
                     <NavLink
-                    to="/about"
+                    to="/todos"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
-                    > About
+                    > Todos
 
                     </NavLink>
                     </li>

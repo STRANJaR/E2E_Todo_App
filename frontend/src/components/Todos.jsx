@@ -1,32 +1,18 @@
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import Cookies from 'js-cookie';
+
 
 function Todos() {
+   const [data, setData] = useState([])
 
-    const logOutUser = () =>{
+   useEffect(()=>{
 
-    
- axios.post("http://localhost:8000/api/v1/user/logout")
- .then((response)=>{
-    console.log(response);
-    if(response.status === 200){
-        Cookies.remove(response.data.data.accessToken)
-    }
- })
- .catch((err)=>{
-    console.log(err);
- })
+   axios.get('http://localhost:8000/api/v1/todo/all-todos/65c68206ab10ba575c0b1e1c')
+   setData(response)
+})
 
- 
-    }
-
-    
   return (
-    <button 
-    className='bg-blueShade px-6 py-3 text-whiteText'
-    onClick={logOutUser}>
-        Logout
-    </button>
+    <div>Todos</div>
   )
 }
 

@@ -12,7 +12,7 @@ const router = Router()
 
 router.route("/add-todo").post(verifyJWT, addTodo)
 router.route("/edit-todo/:todoId").patch(verifyJWT, editTodo)
-router.route("/delete-todo/:todoId").delete(verifyJWT, deleteTodo)
+router.route("/delete-todo/:todoId").delete( deleteTodo)
 router.route("/complete/:todoId").put(verifyJWT, isComplete)
 router.route("/all-todos/:userId").get( getAllTodos)
 

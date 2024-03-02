@@ -1,7 +1,8 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
+import { Context } from "../main";
 
 function Login() {
   let cookieValue;
@@ -13,6 +14,9 @@ const [data, setData] = useState({
   email: "",
   password: "" 
 });
+
+const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+
 
 const handleChange = (e) =>{
   const value = e.target.value;
@@ -47,7 +51,10 @@ const handleSubmit = (e) =>{
 
     // if(response.status === 200) navigate("/root")
 
-    if(response.status === 200) alert(response.data.message)
+    if(response.status === 200){
+      alert(response.data.message)
+      setIsAuthenticated(true)
+    } 
 
   })
 }

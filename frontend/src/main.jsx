@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './components/Home.jsx'
 import Signup from './components/Signup.jsx'
@@ -13,6 +14,23 @@ import Root from './components/Root.jsx'
 import Todos from './components/Todos.jsx'
 import CreateTodo from './components/CreateTodo.jsx'
 
+
+export const Context = createContext({ isAuthenticated: false})
+
+export const AppWrapper = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  return (
+    <Context.Provider
+    value={{
+      isAuthenticated,
+      setIsAuthenticated
+    }}
+    >
+      <App/>
+    </Context.Provider>
+  )
+}
 const router = createBrowserRouter([
   {
     path: '/',
@@ -52,7 +70,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/create-todo",
-        element: <CreateTodo/>
+        element:(
+          <AppWrapper isAuthenticated={true}>
+            <CreateTodo/>
+          </AppWrapper>
+        ),
+        
       }
     ]
   }

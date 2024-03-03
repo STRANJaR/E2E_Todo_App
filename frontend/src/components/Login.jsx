@@ -1,66 +1,104 @@
 import axios from "axios"
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { Context } from "../main";
+import toast, { Toaster } from "react-hot-toast";
 
 function Login() {
-  let cookieValue;
+//   let cookieValue;
 
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
-const [data, setData] = useState({
-  username: "",
-  email: "",
-  password: "" 
-});
+// const [data, setData] = useState({
+//   username: "",
+//   email: "",
+//   password: "" 
+// });
 
-const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+// const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
 
-const handleChange = (e) =>{
-  const value = e.target.value;
-  setData({
-    ...data,
-    [e.target.name] : value
-  })
-};
+// const handleChange = (e) =>{
+//   const value = e.target.value;
+//   setData({
+//     ...data,
+//     [e.target.name] : value
+//   })
+// };
 
-const handleSubmit = (e) =>{
-  e.preventDefault();
-  const userData = {
-    username: data.username,
-    email: data.email,
-    password: data.password
-  };
+// const handleSubmit = (e) =>{
+//   e.preventDefault();
+//   const userData = {
+//     username: data.username,
+//     email: data.email,
+//     password: data.password
+//   };
 
-  axios.post("http://localhost:8000/api/v1/user/login", userData)
-  .then((response)=>{
+//   axios.post("http://localhost:8000/api/v1/user/login", userData)
+//   .then((response)=>{
 
-    // ASSIGNMENT: Taking accessToken from res 
-    const Token = response.data.data.accessToken
+//     // ASSIGNMENT: Taking accessToken from res 
+//     const Token = response.data.data.accessToken
 
-    if(!Token) alert("something went wrong while requiring accessToken from response");
+//     if(!Token) alert("something went wrong while requiring accessToken from response");
 
-    cookieValue = Cookies.set("accessToken", Token)
+//     cookieValue = Cookies.set("accessToken", Token)
 
    
 
-    if(!cookieValue) console.log("Cookie not found")
+//     if(!cookieValue) console.log("Cookie not found")
 
 
-    // if(response.status === 200) navigate("/root")
+//     // if(response.status === 200) navigate("/root")
 
-    if(response.status === 200){
-      alert(response.data.message)
-      setIsAuthenticated(true)
-    } 
+//     if(response.status === 200){
+//       toast.success(response.data.message)
+//       // setIsAuthenticated(true)
+//       Navigate("/create-todo")
+//     } 
 
-  })
-}
+//     if(!response.status === 200){
+//       toast.error('Something went wrong !')
+//     }
+
+//   })
+// }
+
+
+
+// -----------LOG IN CODEBASE--------------//
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('http://localhost:8000/api/v1/user/login',
+      {
+        email,
+        password
+      },
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   withCredentials: true
+      // }
+      );
+
+      toast.success(data.message)
+
+    } catch (error) {
+      if(error.response.status === 404) toast.error("User not found");
+      console.log(error);
+    }
+  }
 
 
   return (
+    <>
+    <div><Toaster/></div>
     <section className="h-screen w-full bg-bodyPrimary">
       <div className="bg-bodyPrimary h-screen flex justify-around  mx-20">
 
@@ -91,8 +129,8 @@ const handleSubmit = (e) =>{
                 placeholder="Enter Your email..."
                 type="email" 
                 name="email" 
-                defaultValue={data.email} 
-                onChange={handleChange} 
+                defaultValue={email} 
+                onChange={((e)=> setEmail(e.target.value))} 
                 required={true} />
 
               <label 
@@ -107,8 +145,8 @@ const handleSubmit = (e) =>{
                 placeholder="Enter Your Password..."
                 type="password" 
                 name="password" 
-                defaultValue={data.password} 
-                onChange={handleChange} 
+                defaultValue={password} 
+                onChange={((e)=> setPassword(e.target.value))} 
                 required={true} />
 
 
@@ -125,6 +163,7 @@ const handleSubmit = (e) =>{
         </div>
       </div>
     </section>
+    </>
 
     
   )

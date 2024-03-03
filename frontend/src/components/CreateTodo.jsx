@@ -1,5 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
+import toast from 'react-hot-toast'
+import { Toaster } from "react-hot-toast"
 
 function CreateTodo() {
   const [title, setTitle] = useState("")
@@ -20,6 +22,8 @@ function CreateTodo() {
       )
       
       console.log(data)
+      toast.success(data.message)
+      console.log(data.message);
 
     } catch (error) {
       console.log(error)
@@ -27,6 +31,7 @@ function CreateTodo() {
   }
   return (
     <>
+    <div><Toaster/></div>
     <form onSubmit={handleTodo}>
       <input 
       type="text"

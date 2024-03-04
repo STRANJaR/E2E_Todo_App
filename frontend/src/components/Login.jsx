@@ -1,10 +1,9 @@
 import axios from "axios"
-import { useContext, useState } from "react"
-import { useNavigate, Navigate } from "react-router-dom";
-import Cookies from 'js-cookie'
-import { Context } from "../main";
+import { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import { AuthContext } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 function Login() {
 //   let cookieValue;
 
@@ -67,10 +66,15 @@ function Login() {
 
 
 
-// -----------LOG IN CODEBASE--------------//
+// -----------LOG IN CODEBASE--------------// 
+ 
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
+  const AuthState = useContext(AuthContext)
+  console.log(AuthState);
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -87,15 +91,21 @@ function Login() {
       // }
       );
 
+      Cookies.set('_id', data.data.user._id)
       toast.success(data.message)
+      AuthState.setIsAuthenticated(true)
+      AuthState.setUserId(Cookies.get('_id'))
 
     } catch (error) {
       if(error.response.status === 404) toast.error("User not found");
       console.log(error);
-    }
+      Cookies.remove('_id')
+      AuthState.setIsAuthenticated(false)
+
+    } 
   }
 
-
+  if(AuthState.isAuthenticated) return  <Navigate to={"/create-todo"}/>
   return (
     <>
     <div><Toaster/></div>

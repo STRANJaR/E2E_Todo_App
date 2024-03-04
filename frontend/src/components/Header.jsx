@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom"
 import { FcTodoList } from "react-icons/fc";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+
  
 function Header() {
+    const AuthState = useContext(AuthContext)
+    
   return (
     <div className="h-20 w-full bg-primaryColor ">
         <div className="bg-bodySecondary shadow-sm flex justify-around content-center px-16">
@@ -28,18 +33,18 @@ function Header() {
 
                     <li>
                     <NavLink
-                    to="/todos"
+                    to="/create-todo"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
-                    > Todos
+                    > Create Todo
 
                     </NavLink>
                     </li>
 
                     <li>
                     <NavLink
-                    to="/developer"
+                    to="/root"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
-                    >Developer</NavLink>
+                    >Todos</NavLink>
                     </li>
 
                     <li>
@@ -53,11 +58,25 @@ function Header() {
             </div>
 
             {/* Right side nav  */}
-            <div className="p-4">
+            <div>
+                {AuthState.isAuthenticated === true ? 
+                <div className="p-4">
+
+                <ul className="flex text-shadeGray p-3">
+                    <li>
+                        <NavLink className="px-5  mx-3  rounded-md text-whiteText shadow-lg py-3 bg-primaryColor">
+
+                            Logout
+                        </NavLink>
+                    </li>
+                </ul> 
+                </div>
+                : <div className="p-4">
                 <ul className="flex text-shadeGray p-3">
                     <li>
                     <NavLink
                     to="/login"
+                    
                     className="px-5  mx-3 rounded-md  py-3 text-dimmedText hover:text-shadeGray transition-all shadow-md"
                     >Login</NavLink>
                     </li>
@@ -70,7 +89,9 @@ function Header() {
                     </li>
 
                 </ul>
+            </div>}
             </div>
+            
 
 
         </div>

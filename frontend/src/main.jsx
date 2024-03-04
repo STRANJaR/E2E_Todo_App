@@ -1,7 +1,6 @@
 import React, { createContext, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './components/Home.jsx'
 import Signup from './components/Signup.jsx'
@@ -13,24 +12,25 @@ import Contact from './components/Contact.jsx'
 import Root from './components/Root.jsx'
 import Todos from './components/Todos.jsx'
 import CreateTodo from './components/CreateTodo.jsx'
+import { AuthContextProvider } from './context/AuthContext.jsx'
 
 
-export const Context = createContext({ isAuthenticated: false})
+// export const Context = createContext({ isAuthenticated: false})
 
-export const AppWrapper = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+// export const AppWrapper = ({children}) => {
+//   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  return (
-    <Context.Provider
-    value={{
-      isAuthenticated,
-      setIsAuthenticated
-    }}
-    >
-      <App/>
-    </Context.Provider>
-  )
-}
+//   return (
+//     <Context.Provider
+//     value={{
+//       isAuthenticated,
+//       setIsAuthenticated
+//     }}
+//     >
+//       {children}
+//     </Context.Provider>
+//   )
+// }
 const router = createBrowserRouter([
   {
     path: '/',
@@ -79,7 +79,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <RouterProvider router={router}/> */}
+    <AuthContextProvider>
+
     <RouterProvider router={router}/>
+    </AuthContextProvider>
   </React.StrictMode>,
 )

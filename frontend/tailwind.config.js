@@ -13,7 +13,8 @@ export default {
       whiteText: "#ffffff",
       dimmedText: "#786E6E",
       shadeGray: "#312221",
-      blueShade: "#1A257D"
+      blueShade: "#1A257D",
+      hoverColor: "#ffc4c5"
     }
   },
   plugins: [],

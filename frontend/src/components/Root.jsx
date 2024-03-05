@@ -5,11 +5,13 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import { SERVER } from "../main";
 
 
 
 function Root() {
     const [todos, setTodos] = useState([])
+    const [editTodo, setEditTodo] = useState({ title: "" })
     const AuthValue = useContext(AuthContext)
     const accessToken = Cookies.get("accessToken")
 
@@ -17,7 +19,7 @@ function Root() {
         // Handle delete 
         const handleDelete = async (_id) => {
             try {
-                const { data } = await axios.delete(`http://localhost:8000/api/v1/todo/delete-todo/${_id}`, {
+                const { data } = await axios.delete(`${SERVER}/api/v1/todo/delete-todo/${_id}`, {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": accessToken
@@ -33,8 +35,14 @@ function Root() {
             }
         }
 
+
+        // TODO: Handle Edit 
+        const handleEdit = () => {
+
+        }
+
     useEffect(()=> {
-        axios.get(`http://localhost:8000/api/v1/todo/all-todos/${AuthValue.userId}`)
+        axios.get(`${SERVER}/api/v1/todo/all-todos/${AuthValue.userId}`)
         .then((res)=>{
             setTodos(res.data.data);
         })
@@ -64,6 +72,7 @@ function Root() {
 
                     <div className="flex justify-center items-center text-2xl">
                     <FaEdit 
+                    onClick={()=> handleEdit(_id)}
                     className="cursor-pointer mr-4" 
                     />
 
@@ -77,9 +86,12 @@ function Root() {
                 </div>
             )})}
           </div> : 
-          <div>
-            <h1>Todos not found</h1>
-          </div> }
+          <div className="bg-shadeGray h-screen text-whiteText">
+          <div className="relative text-center top-24 font-semibold text-3xl ">
+    
+          <h1>Todos Not Found </h1>
+          </div>
+        </div> }
 
           </div>
 

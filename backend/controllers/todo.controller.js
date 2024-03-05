@@ -31,7 +31,7 @@ const editTodo = asyncHandler(async(req, res)=> {
     const { title } = req.body;
 
     if(!todoId) throw new ApiError(400, "Invalid todoId")
-    if(!(title || description)) throw new ApiError(400, "titile is required")
+    if(!(title)) throw new ApiError(400, "titile is required")
 
     const editedTodo = await Todo.findByIdAndUpdate(
         todoId,

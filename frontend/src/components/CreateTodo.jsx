@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { Toaster } from "react-hot-toast"
 import { AuthContext } from "../context/AuthContext"
 import Cookies from "js-cookie"
+import { SERVER } from "../main"
 
 function CreateTodo() {
   const [title, setTitle] = useState("")
@@ -15,7 +16,7 @@ function CreateTodo() {
 
 
   useEffect(()=> {
-    axios.get(`http://localhost:8000/api/v1/todo/all-todos/${AuthStatus.userId}`)
+    axios.get(`${SERVER}/api/v1/todo/all-todos/${AuthStatus.userId}`)
     .then((res)=>{
         setTodos(res.data.data);
     })
@@ -27,7 +28,7 @@ function CreateTodo() {
     e.preventDefault()
 
     try {
-      const { data } = await axios.post('http://localhost:8000/api/v1/todo/add-todo',
+      const { data } = await axios.post(`${SERVER}/api/v1/todo/add-todo`,
       {
         title
       },

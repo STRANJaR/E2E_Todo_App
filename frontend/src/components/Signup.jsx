@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { SERVER } from "../main";
+import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 // import signUpImage from '../assests/signup.jpeg'
 
 function Signup() {
-
+  const AuthStatus = useContext(AuthContext)
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -21,20 +24,36 @@ function Signup() {
   };
 
   const handleSubmit = (e) =>{
-    e.preventDefault();
-    const userData = {
-      fullName: data.fullName,
-      email: data.email,
-      username: data.username,
-      password: data.password
-    };
-    axios.post("http://localhost:8000/api/v1/user/register", userData)
-    .then((response)=>{
-      console.log(response);
-
-      if(response.status === 201) alert(response.data.message)
-    })
+    try {
+      e.preventDefault();
+      const userData = {
+        fullName: data.fullName,
+        email: data.email,
+        username: data.username,
+        password: data.password
+      };
+      axios.post(`${SERVER}/api/v1/user/register`, userData)
+      .then((response)=>{
+        
+  
+        if(response.status === 201){
+          toast.success(response.data.message)
+          AuthStatus.setIsAuthenticated(true)
+        } 
+      })
+    } catch (error) {
+      console.log(error.message);
+      AuthStatus.setIsAuthenticated(false)
+      toast.error('Something went wrong !')
+    }
+   
   }
+  
+  setTimeout(() => {
+    if(AuthStatus.isAuthenticated) return <Navigate to={"/create-todo"}/>
+    
+  }, 1000);
+
   return (
     // <div>
     //   <h1>SignUp Account</h1>
@@ -58,6 +77,7 @@ function Signup() {
     // </div>
 
     <section className="h-screen w-full bg-bodyPrimary">
+      <Toaster/>
       <div className="bg-bodyPrimary h-screen flex justify-around  mx-20">
 
         {/* Left side image  */}

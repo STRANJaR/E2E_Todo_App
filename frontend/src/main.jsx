@@ -6,8 +6,6 @@ import Home from './components/Home.jsx'
 import Signup from './components/Signup.jsx'
 import Login from './components/Login.jsx'
 import Layout from './Layout.jsx'
-import About from './components/About.jsx'
-import Developer from './components/Developer.jsx'
 import Contact from './components/Contact.jsx'
 import Root from './components/Root.jsx'
 import Todos from './components/Todos.jsx'
@@ -15,22 +13,9 @@ import CreateTodo from './components/CreateTodo.jsx'
 import { AuthContextProvider } from './context/AuthContext.jsx'
 
 
-// export const Context = createContext({ isAuthenticated: false})
+// SERVER 
+export const SERVER = 'https://e2e-todo-app.vercel.app'
 
-// export const AppWrapper = ({children}) => {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-//   return (
-//     <Context.Provider
-//     value={{
-//       isAuthenticated,
-//       setIsAuthenticated
-//     }}
-//     >
-//       {children}
-//     </Context.Provider>
-//   )
-// }
 const router = createBrowserRouter([
   {
     path: '/',
@@ -47,14 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login/>
-      },
-      {
-        path: "/about",
-        element: <About/>
-      },
-      {
-        path: "/developer",
-        element: <Developer/>
       },
       {
         path: "/contact",

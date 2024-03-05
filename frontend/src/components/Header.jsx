@@ -1,12 +1,24 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, Navigate } from "react-router-dom"
 import { FcTodoList } from "react-icons/fc";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { BiUser } from "react-icons/bi";
+import Cookies from "js-cookie";
+
 
  
 function Header() {
     const AuthState = useContext(AuthContext)
     
+    // Handle Logout 
+    const handleLogout = () =>{
+        Cookies.remove("accessToken")
+        Cookies.remove("_id")
+        AuthState.setIsAuthenticated(false)
+    }
+
+    // if(AuthState.isAuthenticated === false) return <Navigate to="/" />
+
   return (
     <div className="h-20 w-full bg-primaryColor ">
         <div className="bg-bodySecondary shadow-sm flex justify-around content-center px-16">
@@ -51,7 +63,7 @@ function Header() {
                     <NavLink
                     to="/contact"
                     className={({isActive})=> `${isActive? "bg-primaryColor text-whiteText": "bg-bodySecondary"} px-5  mx-3 rounded-full  py-3 hover:bg-primaryColor hover:text-whiteText transition-all`}
-                    >Contact Us</NavLink>
+                    >Dev </NavLink>
                     </li>
 
                 </ul>
@@ -63,8 +75,14 @@ function Header() {
                 <div className="p-4">
 
                 <ul className="flex text-shadeGray p-3">
+                    <li className="">
+                        <BiUser className="text-2xl mr-6 hover:bg-hoverColor rounded-full"/>
+                    </li>
                     <li>
-                        <NavLink className="px-5  mx-3  rounded-md text-whiteText shadow-lg py-3 bg-primaryColor">
+                        <NavLink 
+                        className="px-5  mx-3  rounded-md text-whiteText shadow-lg py-3 bg-primaryColor"
+                        onClick={handleLogout}
+                        >
 
                             Logout
                         </NavLink>

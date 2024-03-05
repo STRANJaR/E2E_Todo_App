@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { FaCheck } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { SERVER } from '../main';
 
 
 function Todos() {
@@ -10,7 +11,7 @@ function Todos() {
 console.log()
   const handleDeleteTodo = () => {
 
-    axios.delete(`http://localhost:8000/api/v1/todo/delete-todo/${todoId}`)
+    axios.delete(`${SERVER}/api/v1/todo/delete-todo/${todoId}`)
     .then((res)=>{
       console.log(res)
     })
@@ -18,7 +19,7 @@ console.log()
 
   useState(()=>{
 
-    axios.get('http://localhost:8000/api/v1/todo/all-todos/65d4c58103e02ad7b2c4ca9e')
+    axios.get(`${SERVER}/api/v1/todo/all-todos/65d4c58103e02ad7b2c4ca9e`)
     .then((res)=>{
       const data = res.data.data;
       setTodo(data)

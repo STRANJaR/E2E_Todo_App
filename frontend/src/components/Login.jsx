@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useJwt } from 'react-jwt'
+import { SERVER } from "../main";
 function Login() {
 //   let cookieValue;
 
@@ -82,7 +83,7 @@ function Login() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:8000/api/v1/user/login',
+      const { data } = await axios.post(`${SERVER}/api/v1/user/login`,
       {
         email,
         password

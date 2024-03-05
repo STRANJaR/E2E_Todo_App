@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useJwt } from 'react-jwt'
 function Login() {
 //   let cookieValue;
 
@@ -69,11 +70,14 @@ function Login() {
 // -----------LOG IN CODEBASE--------------// 
  
 
+  const AuthState = useContext(AuthContext)
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {decodedToken, isExpired} = useJwt(Cookies.get('accessToken'))
 
-  const AuthState = useContext(AuthContext)
-  console.log(AuthState);
+  // console.log(decodedToken)
+  // console.log(isExpired);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -91,10 +95,15 @@ function Login() {
       // }
       );
 
-      Cookies.set('_id', data.data.user._id)
+      const cookieValue = Cookies.set('_id', data.data.user._id)
+      Cookies.set("accessToken", data.data.accessToken)
+
       toast.success(data.message)
+      
       AuthState.setIsAuthenticated(true)
       AuthState.setUserId(Cookies.get('_id'))
+      AuthState.setProfile(decodedToken)
+      
 
     } catch (error) {
       if(error.response.status === 404) toast.error("User not found");

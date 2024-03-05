@@ -1,26 +1,45 @@
 import axios from "axios"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import toast from 'react-hot-toast'
 import { Toaster } from "react-hot-toast"
 import { AuthContext } from "../context/AuthContext"
+import Cookies from "js-cookie"
 
 function CreateTodo() {
   const [title, setTitle] = useState("")
+  const [todos, setTodos] = useState([])
+
   const AuthStatus = useContext(AuthContext)
+
+  const accessToken = Cookies.get("accessToken")
+
+
+  useEffect(()=> {
+    axios.get(`http://localhost:8000/api/v1/todo/all-todos/${AuthStatus.userId}`)
+    .then((res)=>{
+        setTodos(res.data.data);
+    })
+
+}, [])
+
 
   const handleTodo = async (e) => {
     e.preventDefault()
+
     try {
       const { data } = await axios.post('http://localhost:8000/api/v1/todo/add-todo',
       {
         title
       },
-      // {
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   withCredentials: true
-      // }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": accessToken
+          
+        },
+        withCredentials: false
+      }
+      
       )
       
       console.log(data)
@@ -30,6 +49,7 @@ function CreateTodo() {
     } catch (error) {
       console.log(error)
     }
+
   }
   return (
     <>
@@ -46,7 +66,7 @@ function CreateTodo() {
   // </form>
 
   <section className="h-screen w-full bg-dimmedText">
-        <div className="bg-blueShade h-screen text-center">
+        <div className="bg-shadeGray h-screen text-center">
           <div className="relative top-8">
 
             <form onSubmit={handleTodo}>
@@ -65,6 +85,13 @@ function CreateTodo() {
             </form>
             </div>
 
+          {todos.length > 0 ? 
+          <div>
+            {todos.map((item)=> item.title)}
+          </div> : 
+          <div>
+            <h1>Todos not found</h1>
+          </div> }
         </div>
     </section>
     : 

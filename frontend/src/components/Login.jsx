@@ -108,6 +108,7 @@ function Login() {
 
     } catch (error) {
       if(error.response.status === 404) toast.error("User not found");
+      if(error.response.status === 400) toast.error("Invalid Credentials")
       console.log(error);
       Cookies.remove('_id')
       AuthState.setIsAuthenticated(false)

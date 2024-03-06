@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 
 function Contact() {
@@ -41,40 +42,30 @@ function Contact() {
         </div>
 
         <div>
-          <p className='opacity-80 pt-10 pb-6'>For more : </p>
-          {/* <button
-          className='px-5  rounded-md py-3 bg-primaryColor hover:text-whiteText transition-all'
-          
-          >
-           <a href={profile.html_url} target='_blank'>
-           <FaGithub />
-
-            GitHub
+          <p className='opacity-80 pt-10 pb-6'></p>
+   
+              <div className='flex justify-center'>
+          <a 
+          className='px-8 text-[17px] flex justify-center items-center  rounded-full py-3 bg-[#C70039] hover:bg-[#c70038d3] hover:text-whiteText transition-all ml-5'
+          href="https://drive.google.com/file/d/1xujiA8mCI5movvGpUkOkQaFBZFQjwSvV/view?usp=sharing" target='_blank'>
+      <MdOutlineFileDownload  className='pr-1 text-2xl'/>
             
-            </a></button>
+            Resume</a>
 
-          <button
-          className='px-8   rounded-md py-3 bg-blueShade hover:text-whiteText transition-all ml-5'
-          >
-            <a href="https://www.linkedin.com/in/rohit-shrivastav-dev/" target='_blank'>
-            <FaLinkedin />
-            LinkedIn
-
-              </a></button> */}
-              <div className='flex'>
                 <a 
                 className='px-8  text-[17px] flex justify-center items-center  rounded-full py-3 bg-[#2DBA4E] hover:bg-[#28A746] hover:text-whiteText transition-all ml-5'
-                href="#">
+                href="https://github.com/stranjar" target='_blank'>
             <FaGithub className='pr-1 text-2xl'/>
                   
                   GitHub</a>
 
                 <a 
                 className='px-8 text-[17px] flex justify-center items-center  rounded-full py-3 bg-[#0A66C2] hover:bg-[#0a66c2dc] hover:text-whiteText transition-all ml-5'
-                href="#">
+                href="https://www.linkedin.com/in/rohit-shrivastav-dev/" target='_blank'>
             <FaLinkedin  className='pr-1 text-2xl'/>
                   
                   LinkedIn</a>
+
               </div>
         </div>
       </div>

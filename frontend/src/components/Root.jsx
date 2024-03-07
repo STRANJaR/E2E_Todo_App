@@ -41,6 +41,7 @@ function Root() {
 
         }
 
+
     useEffect(()=> {
         axios.get(`${SERVER}/api/v1/todo/all-todos/${AuthValue.userId}`)
         .then((res)=>{
@@ -65,7 +66,12 @@ function Root() {
                 return (
                 <div key={item._id} className="bg-dimmedText text-whiteText p-4 m-4 rounded-md flex justify-between">
                     <div className="flex justify-center items-center">
-                    <input type="checkbox" name="" id="" />
+
+                    <input 
+                    type="checkbox" 
+                    name="" id="" 
+                    onClick={''}
+                    />
                     <h1 className="ml-4">{title}</h1>
 
                     </div>

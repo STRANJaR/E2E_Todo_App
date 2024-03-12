@@ -36,4 +36,6 @@ Personally I love vercel because I try lot of services but the seamless experien
 
 ## Video
 
-https://res.cloudinary.com/rohitshrivastav/video/upload/v1710264555/sz8pdccblng1sp2vaykw.mp4
+
+https://github.com/STRANJaR/E2E_Todo_App/assets/114976458/2dd62e6a-d261-474e-bbcb-3f187a99ca99
+
